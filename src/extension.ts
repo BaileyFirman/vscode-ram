@@ -23,7 +23,10 @@ export const activate = () => {
 				// const output = execSync('top -l 1 | grep -E "^CPU|^Phys"', { encoding: 'utf-8' });
 				const output = execSync('memory_pressure -Q', { encoding: 'utf-8' });
 				console.log(output);
-				backButton.text = output.split('\n')[1].split(' ')[4];
+				const memoryPressure = execSync('memory_pressure -Q', { encoding: 'utf-8' });
+				const pressurePercentage = memoryPressure.split('\n')[1].split(' ')[4];
+				const inversePercentage = 100 - parseInt(pressurePercentage);
+				backButton.text = `$(dashboard)${inversePercentage}%`;
 			}, 1000);
 	})();
 
