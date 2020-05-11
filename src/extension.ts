@@ -20,14 +20,11 @@ export const activate = () => {
 	
 		(() => {
 			setInterval(() => {
-				// const output = execSync('top -l 1 | grep -E "^CPU|^Phys"', { encoding: 'utf-8' });
-				const output = execSync('memory_pressure -Q', { encoding: 'utf-8' });
-				console.log(output);
 				const memoryPressure = execSync('memory_pressure -Q', { encoding: 'utf-8' });
 				const pressurePercentage = memoryPressure.split('\n')[1].split(' ')[4];
 				const inversePercentage = 100 - parseInt(pressurePercentage);
-				backButton.text = `$(dashboard)${inversePercentage}%`;
-			}, 1000);
+				backButton.text = `$(circuit-board) ${inversePercentage}%`;
+			}, 2000);
 	})();
 
 	backButton.show();
