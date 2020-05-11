@@ -20,9 +20,10 @@ export const activate = () => {
 	
 		(() => {
 			setInterval(() => {
-				const output = execSync('top -l 1 | grep -E "^CPU|^Phys"', { encoding: 'utf-8' });
+				// const output = execSync('top -l 1 | grep -E "^CPU|^Phys"', { encoding: 'utf-8' });
+				const output = execSync('memory_pressure -Q', { encoding: 'utf-8' });
 				console.log(output);
-				backButton.text = output.split('\n')[0].split(' ')[2];
+				backButton.text = output.split('\n')[1].split(' ')[4];
 			}, 1000);
 	})();
 
