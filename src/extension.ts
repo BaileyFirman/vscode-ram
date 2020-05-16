@@ -9,25 +9,25 @@ interface IStatusBarItemAlignment {
 
 export const activate = () => {
 
-	const backButtonAlignment: IStatusBarItemAlignment = {
+	const performanceButtonAllignment: IStatusBarItemAlignment = {
 		position: StatusBarAlignment.Left,
 		priority: 99999
 	};
 
-	const backButtonText: string = 'CPU: Loading...';
-	const backButton: StatusBarItem = 
-	buildStatusBarItem(backButtonAlignment, backButtonText, '');
+	const ramStatusText: string = '$(circuit-board)';
+	const ramStatus: StatusBarItem = 
+		buildStatusBarItem(performanceButtonAllignment, ramStatusText, '');
 	
 		(() => {
 			setInterval(() => {
 				const memoryPressure = execSync('memory_pressure -Q', { encoding: 'utf-8' });
 				const pressurePercentage = memoryPressure.split('\n')[1].split(' ')[4];
 				const inversePercentage = 100 - parseInt(pressurePercentage);
-				backButton.text = `$(circuit-board) ${inversePercentage}%`;
+				ramStatus.text = `$(circuit-board) ${inversePercentage}%`;
 			}, 2000);
 	})();
 
-	backButton.show();
+	ramStatus.show();
 }
 
 const buildStatusBarItem = (
