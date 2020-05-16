@@ -23,7 +23,8 @@ export const activate = () => {
 				const memoryPressure = execSync('memory_pressure -Q', { encoding: 'utf-8' });
 				const pressurePercentage = memoryPressure.split('\n')[1].split(' ')[4];
 				const inversePercentage = 100 - parseInt(pressurePercentage);
-				ramStatus.text = `$(circuit-board) ${inversePercentage}%`;
+				const cpuLoad = execSync(`ps -e -o %cpu | awk '{s+=$1} END {print s}'`, { encoding: 'utf-8' });
+				ramStatus.text = `$(circuit-board) ${inversePercentage}% | ${cpuLoad.slice(0, cpuLoad.length-1)}%`;
 			}, 2000);
 	})();
 
